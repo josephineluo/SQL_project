@@ -1,0 +1,43 @@
+## Lecture 1 - assignment
+
+1. Select all the products in product category 1. How many in total? 
+
+SELECT count(CategoryID)
+from Products
+Where categoryID =1;
+
+2. Select all the customers from France. Out of those, how many are at Paris? 
+
+SELECT count(City)
+from Customers
+where country='France'and city='Paris';
+
+3. How many orders are placed during 1996-07-01 and 1996-07-31?
+
+SELECT count(OrderDate)
+from Orders
+where OrderDate between '1996-07-01' and '1996-07-31';
+
+4. Which employee graduated from University of Washington? 
+
+SELECT *
+from Employees
+where Notes like '%University of Washington%';
+
+5. How many orders does each product ID have? What are the total quantity for each product? What is the average quantity per order per product? 
+
+SELECT Distinct ProductID, count(ProductID)
+from OrderDetails
+group by ProductID
+order by ProductID;
+
+SELECT Distinct ProductID, sum(Quantity)
+from OrderDetails
+group by ProductID
+order by ProductID;
+
+
+6. How many different products are in each order? Which order has the most number of unique products?
+7. Which products are sold in jars? What is the most expensive product that's sold in jars?
+8. What are the product names are included in order ID 10250? 
+9. What products are contained in category 'Dairy Products'?
