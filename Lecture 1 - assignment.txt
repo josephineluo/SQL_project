@@ -1,30 +1,30 @@
 ## Lecture 1 - assignment
 
-1. Select all the products in product category 1. How many in total? 
+1. Select all the products in product category 1. How many in total? ##
 
 SELECT count(CategoryID)
 from Products
 Where categoryID =1;
 
-2. Select all the customers from France. Out of those, how many are at Paris? 
+2. Select all the customers from France. Out of those, how many are at Paris? ##
 
 SELECT count(City)
 from Customers
 where country='France'and city='Paris';
 
-3. How many orders are placed during 1996-07-01 and 1996-07-31?
+3. How many orders are placed during 1996-07-01 and 1996-07-31?##
 
 SELECT count(OrderDate)
 from Orders
 where OrderDate between '1996-07-01' and '1996-07-31';
 
-4. Which employee graduated from University of Washington? 
+4. Which employee graduated from University of Washington? ##
 
 SELECT *
 from Employees
 where Notes like '%University of Washington%';
 
-5. How many orders does each product ID have? What are the total quantity for each product? What is the average quantity per order per product? 
+5. How many orders does each product ID have? What are the total quantity for each product? What is the average quantity per order per product? ##
 
 SELECT Distinct ProductID, count(ProductID)
 from OrderDetails
@@ -37,7 +37,56 @@ group by ProductID
 order by ProductID;
 
 
-6. How many different products are in each order? Which order has the most number of unique products?
-7. Which products are sold in jars? What is the most expensive product that's sold in jars?
-8. What are the product names are included in order ID 10250? 
-9. What products are contained in category 'Dairy Products'?
+6. How many different products are in each order? Which order has the most number of unique products?##
+7. Which products are sold in jars? What is the most expensive product that's sold in jars?##
+
+SELECT * 
+FROM [Products]
+where unit like '%jars%'
+order by price desc
+
+8. What are the product names are included in order ID 10250? ##
+
+SELECT * 
+FROM [Products]
+where ProductID in (
+ SELECT ProductID
+ FROM [OrderDetails]
+ where OrderID = 10250
+)
+
+9. What products are contained in category 'Dairy Products'?##
+
+SELECT ProductName, 'Dairy Products' as CategoryName
+FROM [Products]
+where CategoryID in 
+(
+select CategoryID
+FROM [Categories]
+where CategoryName = 'Dairy Products'
+)
+
+5. Return the top 5 countries which have the most customers? (hint: use distinct to get unique customers)##
+
+6. Which products are sold in ¡®jars¡¯?##
+
+SELECT ProductName as 'Product Sold in Jars'
+FROM [Products]
+where unit like'%jars%'
+
+7. Which employees studied English in their education background? ##
+
+SELECT LastName, FirstName, Notes
+FROM [Employees]
+where notes like '%English%'
+
+8. Which employees are born after 1960? (hint: use ¡®1960-01-01¡¯ to compare with brith date)##
+
+SELECT * FROM [Employees]
+where BirthDate >= '1960-01-01'
+order by BirthDate
+
+9. Return the top 10 products have been sold the most##
+
+10. What are the average prices for ¡®bottles¡¯ and ¡®jars¡¯ products? (hard)##
+
